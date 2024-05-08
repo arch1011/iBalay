@@ -26,7 +26,7 @@
             </a>
           </li>
           <li>      
-            <a href="#">
+            <a href="../room/update-room.php">
               <i class="bi bi-circle"></i><span>Update Rooms</span>
             </a>
           </li>
