@@ -2,15 +2,15 @@
       <div class="hero-slide">
         <div
           class="img overlay"
-          style="background-image: url('../../Resources/images/hero_bg_3.jpg')"
+          style="background-image: url('../../Resources/images/hero_bg_3.jpeg')"
         ></div>
         <div
           class="img overlay"
-          style="background-image: url('../../Resources/images/hero_bg_2.jpg')"
+          style="background-image: url('../../Resources/images/hero_bg_2.jpeg')"
         ></div>
         <div
           class="img overlay"
-          style="background-image: url('../../Resources/images/hero_bg_1.jpg')"
+          style="background-image: url('../../Resources/images/hero_bg_1_copy.jpg')"
         ></div>
       </div>
 
