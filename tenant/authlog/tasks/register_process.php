@@ -3,10 +3,10 @@
 session_start();
 
 // Include the database connection file
-include ('../../../.././database/config.php');
+include ('../../../database/config.php');
 // Check if the user is already logged in; if so, redirect to the dashboard
 if (isset($_SESSION['TenantID'])) {
-    header("Location: /iBalay.com/iBalay-student/index.php"); // Replace with your actual dashboard page URL
+    header("Location: /iBalay/tenant/index.php"); // Replace with your actual dashboard page URL
     exit();
 }
 
@@ -45,10 +45,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $query = "INSERT INTO tenant (FirstName, LastName, Email, PhoneNumber, Password, student_id, address, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         // Execute the query (Note: Use prepared statements to prevent SQL injection)
-        $stmt = $mysqli->prepare($query);
+        $stmt = $conn->prepare($query);
 
         if ($stmt === false) {
-            die('Error in preparing statement: ' . $mysqli->error);
+            die('Error in preparing statement: ' . $conn->error);
         }
 
         // Bind parameters
@@ -65,10 +65,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // After successful registration, update the checked_out column to 1
     $updateQuery = "UPDATE tenant SET checked_out = 1, Evsu_student = 1 WHERE Email = ?";
-    $updateStmt = $mysqli->prepare($updateQuery);
+    $updateStmt = $conn->prepare($updateQuery);
     
     if ($updateStmt === false) {
-        die('Error in preparing update statement: ' . $mysqli->error);
+        die('Error in preparing update statement: ' . $conn->error);
     }
     
     // Bind parameter

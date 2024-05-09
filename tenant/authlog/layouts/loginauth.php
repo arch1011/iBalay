@@ -12,7 +12,7 @@
           <div class="slider-tab"></div>
         </div>
         <div class="form-inner">
-          <form action="login_process.php" method="POST" class="login">
+          <form action="tasks/login_process.php" method="POST" class="login">
             <div class="field">
               <input type="text" placeholder="Email Address" required name="email">
             </div>
