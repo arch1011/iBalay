@@ -16,7 +16,7 @@ include('views/tasks/fetch-room-details.php');
                     <div class="card-body">
                         <h5 class="card-title">Room List</h5>
 
-                        <table class="datatable">
+                        <table class="table datatable">
                             <thead>
                                 <tr>
                                     <th>Room Number</th>

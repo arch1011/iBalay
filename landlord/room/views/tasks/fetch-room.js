@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <h6>Room Number:  ${roomNumber}</h6>
             <p>Description: ${roomDetails.description}</p>
             <p>Room Capacity: ${roomDetails.capacity}</p>
-            <p>Room Price: $${roomDetails.room_price}</p>
+            <p>Room Price: ₱ ${roomDetails.room_price}</p>
         `;
 
         document.getElementById("roomDetailsContent").innerHTML = carousel + roomInfo;
