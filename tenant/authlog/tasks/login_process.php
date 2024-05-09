@@ -4,7 +4,7 @@ session_start();
 
 // Check if the user is already logged in; if so, redirect to the dashboard
 if (isset($_SESSION['TenantID'])) {
-    header("Location: /iBalay.com/iBalay-student/index.php"); // Replace with your actual dashboard page URL
+    header("Location: /iBalay/tenant/public/home.php"); // Replace with your actual dashboard page URL
     exit();
 }
 
@@ -32,12 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($password, $stored_password)) {
             // Password is hashed and correct, set session variables
             $_SESSION['TenantID'] = $TenantID;
-            header("Location: /iBalay.com/iBalay-student/my_room.php"); // Replace with your actual dashboard page URL
+            header("Location: /iBalay/tenant/public/home.php"); // Replace with your actual dashboard page URL
             exit();
         } elseif ($password === $stored_password) {
             // Password is in plaintext and correct, set session variables
             $_SESSION['TenantID'] = $TenantID;
-            header("Location: /iBalay.com/iBalay-student/my_room.php"); // Replace with your actual dashboard page URL
+            header("Location: /iBalay/tenant/public/home.php"); // Replace with your actual dashboard page URL
             exit();
         } else {
             // Password is incorrect, display an error message
