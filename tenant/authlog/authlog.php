@@ -1,7 +1,3 @@
-<?php
-include('../../tenant/session.php');
-?>
-
 <!DOCTYPE html>
 <html>
 <head>

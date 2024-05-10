@@ -32,12 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($password, $stored_password)) {
             // Password is hashed and correct, set session variables
             $_SESSION['TenantID'] = $TenantID;
-            header("Location: /iBalay/tenant/public/home.php"); // Replace with your actual dashboard page URL
+            header("Location: /iBalay/tenant/index.php"); // Replace with your actual dashboard page URL
             exit();
         } elseif ($password === $stored_password) {
             // Password is in plaintext and correct, set session variables
             $_SESSION['TenantID'] = $TenantID;
-            header("Location: /iBalay/tenant/public/home.php"); // Replace with your actual dashboard page URL
+            header("Location: /iBalay/tenant/index.php"); // Replace with your actual dashboard page URL
             exit();
         } else {
             // Password is incorrect, display an error message

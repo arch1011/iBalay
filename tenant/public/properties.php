@@ -1,3 +1,6 @@
+<?php
+include('../../tenant/session.php');
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,9 +36,6 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-
-
-
   </head>
 
   <body>
@@ -48,6 +48,7 @@
       </div>
       <div class="site-mobile-menu-body"></div>
     </div>
+    </div>
 
     <?php
       include('../includes/nav-top.php');
@@ -55,7 +56,7 @@
 
     <div
       class="hero page-inner overlay"
-      style="background-image: url('images/hero_bg_1.jpg')"
+      style="background-image: url('../../Resources/images/hero_bg_1_copy.jpg')"
       >
       <div class="container">
         <div class="row justify-content-center align-items-center">
@@ -68,7 +69,7 @@
               data-aos-delay="200"
             >
               <ol class="breadcrumb text-center justify-content-center">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="/iBalay/tenant/public/home.php">Home</a></li>
                 <li
                   class="breadcrumb-item active text-white-50"
                   aria-current="page"
