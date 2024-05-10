@@ -30,8 +30,16 @@
    <title>
       Property All
     </title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+
+
   </head>
+
   <body>
+
     <div class="site-mobile-menu site-navbar-target">
       <div class="site-mobile-menu-header">
         <div class="site-mobile-menu-close">
@@ -78,6 +86,11 @@
     include('../includes/property-cheap.php');
     ?>
 
+    <?php
+     include('../includes/property-all.php');
+    ?>
+
+
     <!-- Preloader -->
     <div id="overlayer"></div>
     <div class="loader">
@@ -92,5 +105,7 @@
     <script src="../../Resources/js/navbar.js"></script>
     <script src="../../Resources/js/counter.js"></script>
     <script src="../../Resources/js/custom.js"></script>
+
+
   </body>
 </html>

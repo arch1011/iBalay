@@ -7,7 +7,7 @@
             <ul
               class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end"
             >
-              <li class="active"><a href="/iBalay/tenant/index.php">Home</a></li>
+              <li class="active"><a href="/iBalay/tenant/public/home.php">Home</a></li>
               <li class="has-children">
                 <a href="properties.html">Properties</a>
                 <ul class="dropdown">
