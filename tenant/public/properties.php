@@ -1,6 +1,3 @@
-<?php
-include('../../tenant/session.php');
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,11 +27,10 @@ include('../../tenant/session.php');
     <!-- CSS to set consistent image size -->
     <link rel="stylesheet" href="../includes/css/property-list.css" />
     
-<title>
-      home
+   <title>
+      Property All
     </title>
   </head>
-
   <body>
     <div class="site-mobile-menu site-navbar-target">
       <div class="site-mobile-menu-header">
@@ -48,17 +44,39 @@ include('../../tenant/session.php');
     <?php
       include('../includes/nav-top.php');
     ?>
-    
-    <?php
-      include('../includes/search.php');
-    ?>
-    
-    <?php
-      include('../includes/property-list.php');
-    ?>
-    
 
+    <div
+      class="hero page-inner overlay"
+      style="background-image: url('images/hero_bg_1.jpg')"
+      >
+      <div class="container">
+        <div class="row justify-content-center align-items-center">
+          <div class="col-lg-9 text-center mt-5">
+            <h1 class="heading" data-aos="fade-up">Properties</h1>
 
+            <nav
+              aria-label="breadcrumb"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <ol class="breadcrumb text-center justify-content-center">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li
+                  class="breadcrumb-item active text-white-50"
+                  aria-current="page"
+                >
+                  Properties
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <?php
+    include('../includes/property-cheap.php');
+    ?>
 
     <!-- Preloader -->
     <div id="overlayer"></div>
