@@ -117,7 +117,8 @@ include('../../tenant/session.php');
                 WHERE room.description LIKE '%$search_query%' OR 
                       room.capacity LIKE '%$search_query%' OR 
                       room.room_price = '$search_query' OR 
-                      bh_information.BH_address LIKE '%$search_query%'";
+                      bh_information.BH_address LIKE '%$search_query%' OR
+                      bh_information.BH_name LIKE '%$search_query%'";
 
                 $result = mysqli_query($conn, $sql);
 
