@@ -71,19 +71,17 @@
         </form>
     <?php endif; ?>
 
-    <!-- Reserve Button -->
-    <form action="reserve_action.php" method="post" style="display: inline-block;">
-        <?php if (isset($room) && isset($room['room_id'])): ?>
-            <input type="hidden" name="room_id" value="<?= $room['room_id'] ?>" />
-        <?php endif; ?>
-        <button type="submit" class="btn btn-primary" title="Reserve this room">
-            <i class="fa fa-calendar-check"></i> Reserve
-        </button>
-    </form>
-</div>
+<!-- Reserve Button -->
+<form id="reserveForm" action="../includes/config/reserve_action.php" method="post" style="display: inline-block;">
+    <?php if (isset($room) && isset($room['room_id'])): ?>
+        <input type="hidden" name="room_id" value="<?= $room['room_id'] ?>" />
+    <?php endif; ?>
+    <button id="reserveButton" type="submit" class="btn btn-primary" title="Reserve this room">
+        <i class="fa fa-calendar-check"></i> Reserve
+    </button>
+</form>
 
-
-<!-- Success Modal -->
+<!-- Success bookmarked Modal -->
 <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -97,7 +95,7 @@
     </div>
 </div>
 
-<!-- Already Reserved Modal -->
+<!-- Already bookmarked Modal -->
 <div class="modal fade" id="bookmarkedModal" tabindex="-1" role="dialog" aria-labelledby="bookmakredModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -106,6 +104,34 @@
             </div>
             <div class="modal-body">
                 <p>You Already bookmarked this Room.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success reserve Modal -->
+<div class="modal fade" id="reserveSuccessModal" tabindex="-1" role="dialog" aria-labelledby="reserveSuccessModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reserveSuccessModalLabel">Success!</h5>
+            </div>
+            <div class="modal-body">
+                <p id="reserveSuccessMessage"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Failure reserve Modal -->
+<div class="modal fade" id="reserveFailureModal" tabindex="-1" role="dialog" aria-labelledby="reserveFailureModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reserveFailureModalLabel">Failed to Reserve!</h5>
+            </div>
+            <div class="modal-body">
+                <p id="reserveFailureMessage"></p>
             </div>
         </div>
     </div>
@@ -145,3 +171,37 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add an event listener to the form submission
+    document.getElementById('reserveForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+        var formData = new FormData(this);
+        fetch('../includes/config/reserve_action.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // If reservation was successful, display success message in modal
+                document.getElementById('reserveSuccessMessage').textContent = data.message;
+                $('#reserveSuccessModal').modal('show'); // Show the success modal using jQuery
+            } else {
+                // If reservation failed, display failure message in modal
+                document.getElementById('reserveFailureMessage').textContent = data.message;
+                $('#reserveFailureModal').modal('show'); // Show the failure modal using jQuery
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // If there was an error, display failure message in modal
+            document.getElementById('reserveFailureMessage').textContent = 'An error occurred while processing your request.';
+            $('#reserveFailureModal').modal('show'); // Show the failure modal using jQuery
+        });
+    });
+});
+</script>
+
+

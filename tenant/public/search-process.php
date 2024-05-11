@@ -84,10 +84,8 @@ include('../../tenant/session.php');
     </div>
 
     <br>
-    <br>
 
                 <?php
-            session_start(); // Start the session if not already started
 
             $host = 'localhost';
             $dbname = 'iBalay_System';
@@ -113,9 +111,6 @@ include('../../tenant/session.php');
             if(isset($_GET['query'])) {
                 $search_query = $_GET['query'];
 
-                // Perform a database query to search for rooms and boarding houses based on the search query
-                // Join the room and bh_information tables using the landlord_id
-                // Search in both tables for matches in the description field
                 $sql = "SELECT room.*, bh_information.*
                 FROM room
                 LEFT JOIN bh_information ON room.landlord_id = bh_information.landlord_id
@@ -132,7 +127,6 @@ include('../../tenant/session.php');
                     $rooms[] = $row;
                 }
 
-                // Calculate pagination variables
                 $items_per_page = 6; // Adjust as needed
                 $total_rooms = count($rooms);
                 $total_pages = ceil($total_rooms / $items_per_page);
@@ -142,7 +136,7 @@ include('../../tenant/session.php');
             ?>
             <div class="row mb-5 align-items-center">
                 <div class="col-lg-6 text-center mx-auto">
-                    <h2 class="font-weight-bold text-primary heading">All Listed Rooms</h2>
+                    <h2 class="font-weight-bold text-primary heading">Searched Property</h2>
                 </div>
             </div>
 
