@@ -11,7 +11,7 @@
               <li class="acive">
                 <a href="/iBalay/tenant/public/properties.php">Properties</a>
               </li>
-              <li><a href="services.html">Services</a></li>
+              <li><a href="/iBalay/tenant/public/bookmark.php">Bookmarked Rooms</a></li>
               <li><a href="about.html">About</a></li>
               <li><a href="contact.html">Contact Us</a></li>
             </ul>
