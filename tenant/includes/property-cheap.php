@@ -1,63 +1,8 @@
+       <?php 
+         include('config/property-cheap.php');
+       ?>
 
-
-    <?php
-$host = 'localhost';
-$dbname = 'iBalay_System';
-$username = 'root';
-$password = '';
-
-// Create a connection using MySQLi
-$conn = mysqli_connect($host, $username, $password, $dbname);
-
-// Check for successful connection
-if (!$conn) {
-    error_log("Database connection failed: " . mysqli_connect_error(), 0);
-    die("Connection failed. Please try again later.");
-}
-
-// Set character set to UTF-8
-mysqli_set_charset($conn, 'utf8');
-
-// Fetch the 10 cheapest rooms with their associated building information
-$query = "
-    SELECT 
-        r.room_id,
-        r.room_photo1,
-        r.room_price,
-        r.capacity,
-        r.landlord_id,
-        r.room_number,
-        b.BH_address,
-        b.number_of_kitchen,
-        r.description
-    FROM 
-        room r
-    JOIN 
-        bh_information b
-    ON 
-        r.landlord_id = b.landlord_id
-    ORDER BY 
-        r.room_price ASC
-    LIMIT 
-        10
-";
-
-// Prepare and execute the query
-$result = mysqli_query($conn, $query);
-
-// Check for query errors
-if (!$result) {
-    error_log("Query failed: " . mysqli_error($conn), 0);
-    die("Error fetching data. Please try again later.");
-}
-
-// Fetch all results
-$rooms = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-mysqli_free_result($result); // Free the result set
-mysqli_close($conn); // Close the connection
-?>
-
+       
 <!-- CSS to ensure consistent image size -->
 <style>
 .property-item .img {
@@ -95,7 +40,7 @@ mysqli_close($conn); // Close the connection
                 </a>
 
                 <div class="property-content">
-                  <div class="price mb-2"><span><?= "$" . number_format($room['room_price'], 2) ?></span></div>
+                  <div class="price mb-2"><span><?= "₱" . number_format($room['room_price'], 2) ?></span></div>
                   <div>
                     <span class="d-block mb-2 text-black-50"><?= $room['BH_address'] ?></span>
                     <div class="specs d-flex mb-4">

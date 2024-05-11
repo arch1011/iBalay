@@ -52,7 +52,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // If the script reaches here, it means either it's a GET request or the login failed.
 // You can render the login form and display any error message.
 
+
+// Turn on error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 // Redirect to error page if the dashboard URL is not found
-header("Location: /iBalay.com/iBalay-student/login.php");
+
 exit();
 ?>
