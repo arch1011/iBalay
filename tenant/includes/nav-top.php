@@ -13,6 +13,7 @@
               </li>
               <li><a href="/iBalay/tenant/public/bookmark.php">Bookmarked Rooms</a></li>
               <li><a href="/iBalay/tenant/public/reserved.php">Reserved Rooms</a></li>
+              <li><a href="/iBalay/tenant/public/bh-list.php">Boarding Houses</a></li>
               <li><a href="about.html">About</a></li>
               <li><a href="contact.html">Contact Us</a></li>
             </ul>
