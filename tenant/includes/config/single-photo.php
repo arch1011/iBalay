@@ -31,7 +31,7 @@ if ($room_id) {
             r.capacity,
             r.room_photo1,
             r.room_photo2,
-            r.description AS room_description,
+            r.description AS room_description,   
             b.BH_address,
             b.number_of_kitchen
         FROM 

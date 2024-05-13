@@ -62,6 +62,14 @@ include('../../tenant/session.php');
           include('../includes/room-reviews.php');
           ?>
 
+            <hr>
+
+          <?php
+           include('../includes/config/map-bh.php');
+          ?>
+
+          <hr>
+
       </div>
     </div>
   </div>
