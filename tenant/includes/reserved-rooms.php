@@ -7,7 +7,8 @@
         <div class="row">
             <?php if (empty($rooms)): ?>
                 <div class="col-lg-12 text-center">
-                    <p>No reservations found.</p>
+                    <p>No reservations found. or 
+                        reservations declined by landlord</p>
                 </div>
             <?php else: ?>
                 <?php foreach ($rooms as $room): ?>
