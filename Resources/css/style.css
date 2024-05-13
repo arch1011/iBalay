@@ -9381,7 +9381,7 @@ textarea.form-control-lg {
       float: right;
       margin-top: 8px; }
       .site-mobile-menu .site-mobile-menu-header .site-mobile-menu-close span {
-        font-size: 30px;
+        font-size: 30px; /* size it font */
         display: inline-block;
         padding-left: 10px;
         padding-right: 0px;
@@ -9461,7 +9461,7 @@ textarea.form-control-lg {
       width: 100%; }
       .site-mobile-menu .site-nav-wrap > li > a {
         padding-left: 20px;
-        font-size: 14px; }
+        font-size: 20px; }
       .site-mobile-menu .site-nav-wrap > li > ul {
         padding: 0;
         margin: 0;
