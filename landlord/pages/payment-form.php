@@ -89,47 +89,49 @@ mysqli_close($conn);
             </form>
         </div>
     </div>
-
+    
     <div class="card">
-    <div class="card-body">
-        <?php if (isset($_GET['tenant_id']) && isset($tenants[$_GET['tenant_id']])): ?>
-            <h5 class="card-title" style="font-size: 18px;">Payment Section</h5>
+  <div class="card-body">
+    <?php if (isset($_GET['tenant_id']) && isset($tenants[$_GET['tenant_id']])): ?>
+        <h5 class="card-title" style="font-size: 18px;">Payment Section</h5>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Last Payment Date</th>
-                        <th scope="col">Due Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><?= htmlspecialchars($tenants[$_GET['tenant_id']]['last_payment_date']) ?></td>
-                        <td><?= htmlspecialchars($tenants[$_GET['tenant_id']]['due_date']) ?></td>
-                    </tr>
-                </tbody>
-            </table>
-            <p>Last Payment Amount: <?= htmlspecialchars($tenants[$_GET['tenant_id']]['last_payment_amount']) ?></p>
-            <p>Boarder Name: <?= htmlspecialchars($tenants[$_GET['tenant_id']]['name']) ?></p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Last Payment Date</th>
+                    <th scope="col">Due Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><?= htmlspecialchars($tenants[$_GET['tenant_id']]['last_payment_date']) ?></td>
+                    <td><?= htmlspecialchars($tenants[$_GET['tenant_id']]['due_date']) ?></td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Last Payment Amount: <?= htmlspecialchars($tenants[$_GET['tenant_id']]['last_payment_amount']) ?></p>
+        <p>Boarder Name: <?= htmlspecialchars($tenants[$_GET['tenant_id']]['name']) ?></p>
 
-            <form action="payment-process.php" method="POST">
-                <div class="mb-3">
-                    <label for="newDueDate" class="form-label">New Due Date</label>
-                    <input type="date" class="form-control" id="newDueDate" name="new_due_date" required>
-                </div>
-                <div class="mb-3" style="display:none;">
-                    <label for="paymentDate" class="form-label">Payment Date</label>
-                    <input type="date" class="form-control" id="paymentDate" name="payment_date" value="<?= date('Y-m-d') ?>" readonly>
-                </div>
-                <div class="mb-3">
-                    <label for="paymentAmount" class="form-label">Payment Amount</label>
-                    <input type="number" class="form-control" id="paymentAmount" name="amount" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit Payment</button>
-            </form>
-        <?php endif; ?>
-    </div>
+        <form action="payment-process.php" method="POST">
+            <div class="mb-3">
+                <label for="newDueDate" class="form-label">New Due Date</label>
+                <input type="date" class="form-control" id="newDueDate" name="new_due_date" required>
+            </div>
+            <div class="mb-3">
+                <label for="paymentDate" class="form-label">Payment Date</label>
+                <input type="date" class="form-control" id="paymentDate" name="payment_date" value="<?= date('Y-m-d') ?>" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="paymentAmount" class="form-label">Payment Amount</label>
+                <input type="number" class="form-control" id="paymentAmount" name="amount" required>
+            </div>
+            <input type="hidden" name="tenant_id" value="<?= htmlspecialchars($_GET['tenant_id']) ?>">
+            <button type="submit" class="btn btn-primary">Submit Payment</button>
+        </form>
+    <?php endif; ?>
+  </div>
 </div>
+
 
 
 </main><!-- End #main -->

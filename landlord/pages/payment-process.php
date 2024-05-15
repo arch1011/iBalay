@@ -1,11 +1,9 @@
-TODO
-
 <?php
 session_start(); // Start the session if not already started
 
-// Check if LandlordID is set in the session
+// Check if landlord_id is set in the session
 if (!isset($_SESSION['landlord_id'])) {
-    // Redirect or handle the case where LandlordID is not set
+    // Redirect or handle the case where landlord_id is not set
     exit('landlord_id not set in session');
 }
 
@@ -26,6 +24,10 @@ if (!$conn) {
 // Set character set to UTF-8
 mysqli_set_charset($conn, 'utf8');
 
+// Turn on error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 // Get the landlord ID from the session
 $landlord_id = $_SESSION['landlord_id'];
 
@@ -37,27 +39,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $amount = isset($_POST['amount']) ? floatval($_POST['amount']) : null;
 
     if ($tenant_id && $payment_date && $new_due_date && $amount) {
-        // Insert new payment data into tenant_payments table
-        $stmt = $conn->prepare("INSERT INTO tenant_payments (TenantID, payment_date, amount) VALUES (?, ?, ?)");
-        $stmt->bind_param("issd", $tenant_id, $payment_date, $amount);
+        // Fetch the rented_id and room_id from rented_rooms table for this tenant
+        $stmt_fetch = $conn->prepare("SELECT rented_id, room_id FROM rented_rooms WHERE TenantID = ?");
+        $stmt_fetch->bind_param("i", $tenant_id);
+        $stmt_fetch->execute();
+        $result_fetch = $stmt_fetch->get_result();
 
-        if ($stmt->execute()) {
-            // Update the end_date in the rented_rooms table
-            $stmt_update = $conn->prepare("UPDATE rented_rooms SET end_date = ? WHERE TenantID = ?");
-            $stmt_update->bind_param("si", $new_due_date, $tenant_id);
+        if ($result_fetch->num_rows > 0) {
+            $row = $result_fetch->fetch_assoc();
+            $rented_id = $row['rented_id'];
+            $room_id = $row['room_id'];
 
-            if ($stmt_update->execute()) {
-                echo "Payment recorded and due date updated successfully.";
+            // Insert new payment data into tenant_payments table
+            $stmt_insert = $conn->prepare("INSERT INTO tenant_payments (rented_id, TenantID, room_id, landlord_id, payment_date, amount) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt_insert->bind_param("iiiisi", $rented_id, $tenant_id, $room_id, $landlord_id, $payment_date, $amount);
+
+            if ($stmt_insert->execute()) {
+                // Update the end_date in the rented_rooms table
+                $stmt_update = $conn->prepare("UPDATE rented_rooms SET end_date = ? WHERE rented_id = ?");
+                $stmt_update->bind_param("si", $new_due_date, $rented_id);
+
+                if ($stmt_update->execute()) {
+                    echo "Payment recorded and due date updated successfully.";
+                } else {
+                    echo "Error updating due date: " . $stmt_update->error;
+                }
+
+                $stmt_update->close();
             } else {
-                echo "Error updating due date: " . $stmt_update->error;
+                echo "Error recording payment: " . $stmt_insert->error;
             }
 
-            $stmt_update->close();
+            $stmt_insert->close();
         } else {
-            echo "Error recording payment: " . $stmt->error;
+            echo "Tenant record not found.";
         }
 
-        $stmt->close();
+        $stmt_fetch->close();
     } else {
         echo "Invalid input data.";
     }
