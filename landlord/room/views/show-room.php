@@ -12,7 +12,7 @@ include('views/tasks/fetch-room-details.php');
             </nav>
         </div><!-- End Page Title -->
 
-                <div class="card">
+                <div class="card"  style="font-size: 10px;">
                     <div class="card-body">
                         <h5 class="card-title">Room List</h5>
 

@@ -24,40 +24,53 @@ if ($stmt1) {
     mysqli_stmt_bind_param($stmt1, "iiis", $room_id, $tenant_id, $landlord_id, $end_date);
 
     // Execute the statement
-    mysqli_stmt_execute($stmt1);
+    if (mysqli_stmt_execute($stmt1)) {
+        // Close the statement
+        mysqli_stmt_close($stmt1);
 
-    // Close the statement
-    mysqli_stmt_close($stmt1);
-} else {
-    echo "Error: " . mysqli_error($conn);
-}
+        // Insert record into tenant_payments table
+        $query2 = "INSERT INTO tenant_payments (rented_id, TenantID, room_id, landlord_id, payment_date, amount) 
+                   VALUES (LAST_INSERT_ID(), ?, ?, ?, CURDATE(), ?)";
 
-// Insert record into tenant_payments table
-$query2 = "INSERT INTO tenant_payments (rented_id, TenantID, room_id, landlord_id, payment_date, amount) 
-           VALUES (LAST_INSERT_ID(), ?, ?, ?, CURDATE(), ?)";
+        $stmt2 = mysqli_prepare($conn, $query2);
 
-$stmt2 = mysqli_prepare($conn, $query2);
+        if ($stmt2) {
+            // Bind parameters
+            mysqli_stmt_bind_param($stmt2, "iiid", $tenant_id, $room_id, $landlord_id, $payment);
 
-if ($stmt2) {
-    // Bind parameters
-    mysqli_stmt_bind_param($stmt2, "iiid", $tenant_id, $room_id, $landlord_id, $payment);
+            // Execute the statement
+            mysqli_stmt_execute($stmt2);
 
-    // Execute the statement
-    mysqli_stmt_execute($stmt2);
+            // Close the statement
+            mysqli_stmt_close($stmt2);
+        } else {
+            echo "Error: " . mysqli_error($conn);
+        }
 
-    // Close the statement
-    mysqli_stmt_close($stmt2);
-} else {
-    echo "Error: " . mysqli_error($conn);
-}
+        // Decrement room capacity by 1
+        $query3 = "UPDATE room SET capacity = capacity - 1 WHERE room_id = ?";
+        $stmt3 = mysqli_prepare($conn, $query3);
+        if ($stmt3) {
+            mysqli_stmt_bind_param($stmt3, "i", $room_id);
+            mysqli_stmt_execute($stmt3);
+            mysqli_stmt_close($stmt3);
+        } else {
+            echo "Error: " . mysqli_error($conn);
+        }
 
-// Decrement room capacity by 1
-$query3 = "UPDATE room SET capacity = capacity - 1 WHERE room_id = ?";
-$stmt3 = mysqli_prepare($conn, $query3);
-if ($stmt3) {
-    mysqli_stmt_bind_param($stmt3, "i", $room_id);
-    mysqli_stmt_execute($stmt3);
-    mysqli_stmt_close($stmt3);
+        // Delete tenant's record from reserved_room table
+        $query4 = "DELETE FROM reserved_room WHERE TenantID = ? AND room_id = ?";
+        $stmt4 = mysqli_prepare($conn, $query4);
+        if ($stmt4) {
+            mysqli_stmt_bind_param($stmt4, "ii", $tenant_id, $room_id);
+            mysqli_stmt_execute($stmt4);
+            mysqli_stmt_close($stmt4);
+        } else {
+            echo "Error: " . mysqli_error($conn);
+        }
+    } else {
+        echo "Error: " . mysqli_error($conn);
+    }
 } else {
     echo "Error: " . mysqli_error($conn);
 }

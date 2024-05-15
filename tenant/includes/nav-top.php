@@ -6,19 +6,18 @@
           <div class="site-navigation">
             <a href="/iBalay/tenant/index.php" class="logo m-0 float-start">iBalay</a>
 
-            <ul
-              class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end"
-            >
-              <li class="active"><a href="/iBalay/tenant/public/home.php" style="font-size:20px;">Home</a></li>
-              <li class="acive">
-                <a href="/iBalay/tenant/public/properties.php" style="font-size:20px;">Properties</a>
-              </li>
-              <li><a href="/iBalay/tenant/public/bookmark.php" style="font-size:20px;">Bookmarked Rooms</a></li>
-              <li><a href="/iBalay/tenant/public/reserved.php" style="font-size:20px;">Reserved Rooms</a></li>
-              <li><a href="/iBalay/tenant/public/bh-list.php" style="font-size:20px;">Boarding Houses</a></li>
-              <li><a href="about.html" style="font-size:20px;">About</a></li>
-              <li><a href="contact.html" style="font-size:20px;">Contact Us</a></li>
-            </ul>
+              <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end">
+                <li class="active"><a href="/iBalay/tenant/public/home.php" style="font-size:20px;">Home</a></li>
+                <li class="acive"><a href="/iBalay/tenant/public/properties.php" style="font-size:20px;">Rooms</a></li>
+                <li><a href="/iBalay/tenant/public/bh-list.php" style="font-size:20px;">Boarding Houses</a></li>
+                <li style="border-top: 1px solid #ccc; padding-top: 10px; margin-top: 10px;"></li>
+                <li><a href="/iBalay/tenant/public/bookmark.php" style="font-size:20px;">My Favorites</a></li>
+                <li><a href="/iBalay/tenant/public/reserved.php" style="font-size:20px;">My Reservation</a></li>
+                <li><a href="/iBalay/tenant/public/rented.php" style="font-size:20px;">My Room</a></li>
+                <li><a href="/iBalay/tenant/public/#" style="font-size:20px;">My Profile</a></li>
+                <li><a href="about.html" style="font-size:20px;">About</a></li>
+                <li><a href="contact.html" style="font-size:20px;">Contact Us</a></li>
+              </ul>
 
             <a
               href="#"
@@ -36,3 +35,21 @@
     </nav>
 
     
+<!-- default
+
+            <ul
+              class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end"
+            >
+              <li class="active"><a href="/iBalay/tenant/public/home.php" style="font-size:20px;">Home</a></li>
+              <li class="acive">
+                <a href="/iBalay/tenant/public/properties.php" style="font-size:20px;">Rooms</a>
+              </li>
+              <li><a href="/iBalay/tenant/public/bh-list.php" style="font-size:20px;">Boarding Houses</a></li>
+              <hr>
+              <li><a href="/iBalay/tenant/public/bookmark.php" style="font-size:20px;">Bookmarked Rooms</a></li>
+              <li><a href="/iBalay/tenant/public/reserved.php" style="font-size:20px;">Reserved Rooms</a></li>
+              <li><a href="/iBalay/tenant/public/rented.php" style="font-size:20px;">My Room</a></li>
+              <li><a href="about.html" style="font-size:20px;">About</a></li>
+              <li><a href="contact.html" style="font-size:20px;">Contact Us</a></li>
+            </ul>
+-->

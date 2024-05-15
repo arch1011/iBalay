@@ -44,12 +44,12 @@
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="forms-elements.html">
+            <a href="../tenant/list.php">
               <i class="bi bi-circle"></i><span>Tenant Lists</span>
             </a>
           </li>
           <li>
-            <a href="forms-layouts.html">
+            <a href="../tenant/payment-history.php">
               <i class="bi bi-circle"></i><span>Tenant Payment History</span>
             </a>
           </li>
@@ -81,6 +81,13 @@
         <a class="nav-link collapsed" href="/iBalay/landlord/pages/reservation.php">
           <i class="bi bi-envelope"></i>
           <span>Reservation</span>
+        </a>
+      </li><!-- End Contact Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/iBalay/landlord/pages/new-payment.php">
+          <i class="bi bi-envelope"></i>
+          <span>PAY SECTION</span>
         </a>
       </li><!-- End Contact Page Nav -->
 

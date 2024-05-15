@@ -38,13 +38,24 @@ try {
             // Debug: Output the value of $tenant_id
             error_log("TenantID: " . $tenant_id);
 
+            // Check if the tenant already has a rented room
+            $check_rented_query = "SELECT * FROM rented_rooms WHERE TenantID = ?";
+            $check_rented_stmt = mysqli_prepare($conn, $check_rented_query);
+            mysqli_stmt_bind_param($check_rented_stmt, 'i', $tenant_id);
+            mysqli_stmt_execute($check_rented_stmt);
+            mysqli_stmt_store_result($check_rented_stmt);
+            if (mysqli_stmt_num_rows($check_rented_stmt) > 0) {
+                echo json_encode(array('success' => false, 'message' => 'You already have a rented room.'));
+                exit;
+            }
+
             // Check if the room is already reserved by the same tenant
-            $check_query = "SELECT * FROM reserved_room WHERE TenantID = ? AND room_id = ?";
-            $check_stmt = mysqli_prepare($conn, $check_query);
-            mysqli_stmt_bind_param($check_stmt, 'ii', $tenant_id, $room_id);
-            mysqli_stmt_execute($check_stmt);
-            mysqli_stmt_store_result($check_stmt);
-            if (mysqli_stmt_num_rows($check_stmt) > 0) {
+            $check_reserved_query = "SELECT * FROM reserved_room WHERE TenantID = ? AND room_id = ?";
+            $check_reserved_stmt = mysqli_prepare($conn, $check_reserved_query);
+            mysqli_stmt_bind_param($check_reserved_stmt, 'ii', $tenant_id, $room_id);
+            mysqli_stmt_execute($check_reserved_stmt);
+            mysqli_stmt_store_result($check_reserved_stmt);
+            if (mysqli_stmt_num_rows($check_reserved_stmt) > 0) {
                 echo json_encode(array('success' => false, 'message' => 'Room already reserved.'));
                 exit;
             }
