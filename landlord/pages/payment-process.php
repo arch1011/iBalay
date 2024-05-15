@@ -60,7 +60,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt_update->bind_param("si", $new_due_date, $rented_id);
 
                 if ($stmt_update->execute()) {
-                    echo "Payment recorded and due date updated successfully.";
+                    header ('location: /iBalay/landlord/tenant/payment-history.php');
+                    exit;
                 } else {
                     echo "Error updating due date: " . $stmt_update->error;
                 }

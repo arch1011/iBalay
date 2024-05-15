@@ -89,7 +89,7 @@ mysqli_close($conn);
             </form>
         </div>
     </div>
-    
+
     <div class="card">
   <div class="card-body">
     <?php if (isset($_GET['tenant_id']) && isset($tenants[$_GET['tenant_id']])): ?>
@@ -117,7 +117,7 @@ mysqli_close($conn);
                 <label for="newDueDate" class="form-label">New Due Date</label>
                 <input type="date" class="form-control" id="newDueDate" name="new_due_date" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-3" hidden>
                 <label for="paymentDate" class="form-label">Payment Date</label>
                 <input type="date" class="form-control" id="paymentDate" name="payment_date" value="<?= date('Y-m-d') ?>" readonly>
             </div>
