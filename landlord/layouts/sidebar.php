@@ -54,7 +54,7 @@
             </a>
           </li>
           <li>
-            <a href="forms-editors.html">
+            <a href="../tenant/previous-tenant.php">
               <i class="bi bi-circle"></i><span>Previous Tenants</span>
             </a>
           </li>
@@ -81,6 +81,13 @@
         <a class="nav-link collapsed" href="/iBalay/landlord/pages/reservation.php">
           <i class="bi bi-envelope"></i>
           <span>Reservation</span>
+        </a>
+      </li><!-- End Contact Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/iBalay/landlord/pages/checkout-tenant.php">
+          <i class="bi bi-envelope"></i>
+          <span>CHECKOUT SECTION</span>
         </a>
       </li><!-- End Contact Page Nav -->
 

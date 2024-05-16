@@ -39,7 +39,9 @@ $query = "
     LEFT JOIN 
         tenant_payments tp ON t.TenantID = tp.TenantID
     WHERE 
-        rr.landlord_id = $landlord_id
+        rr.landlord_id = $landlord_id 
+    AND 
+        t.checked_out = 0
     GROUP BY 
         t.TenantID, t.FirstName, t.LastName, rr.end_date
     ORDER BY 

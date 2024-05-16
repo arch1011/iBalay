@@ -32,7 +32,7 @@ $query = "SELECT t.TenantID, t.FirstName, t.LastName, t.Email, t.PhoneNumber, t.
           FROM rented_rooms rr
           INNER JOIN tenant t ON rr.TenantID = t.TenantID
           WHERE rr.landlord_id = $landlord_id
-          AND t.checked_out = 0"; // added
+          AND t.checked_out = 0";
 
 $result = mysqli_query($conn, $query);
 
@@ -76,9 +76,13 @@ mysqli_close($conn);
                         <tr>
                             <td><?= htmlspecialchars($tenant['FirstName'] . ' ' . $tenant['LastName']) ?></td>
                             <td>
-                                <button type="button" class="btn btn-primary view-button" data-id="<?= $tenant['TenantID'] ?>">
-                                    View
-                                </button>
+                            <button type="button" class="btn btn-primary view-button" data-id="<?= $tenant['TenantID'] ?>">
+    <i class="bi bi-eye"></i> <!-- Assuming you're using Bootstrap icons -->
+</button>
+<button type="button" class="btn btn-danger checkout-button" data-id="<?= $tenant['TenantID'] ?>" data-bs-toggle="modal" data-bs-target="#tenantCheckoutModal">
+    <i class="bi bi-box-arrow-in-left"></i> <!-- Assuming you're using Bootstrap icons -->
+</button>
+
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -88,7 +92,7 @@ mysqli_close($conn);
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- View Tenant Modal -->
     <div class="modal fade" id="tenantModal" tabindex="-1" aria-labelledby="tenantModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -105,6 +109,21 @@ mysqli_close($conn);
             </div>
         </div>
     </div>
+
+    <!-- Tenant Checkout Modal -->
+    <div class="modal fade" id="tenantCheckoutModal" tabindex="-1" aria-labelledby="tenantCheckoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tenantCheckoutModalLabel">Proceed Checkout?</h5>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" id="confirmCheckoutBtn">Proceed</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </main><!-- End #main -->
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
@@ -115,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
     viewButtons.forEach(button => {
         button.addEventListener('click', function() {
             const tenantId = this.getAttribute('data-id');
-            fetch(`tasks/get-tenant-info.php?tenant_id=${tenantId}`)
+            fetch(`config/get-tenant-info.php?tenant_id=${tenantId}`)
                 .then(response => response.json())
                 .then(data => {
                     const modalBody = document.querySelector('#tenantModal .modal-body');
@@ -130,6 +149,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     const tenantModal = new bootstrap.Modal(document.getElementById('tenantModal'));
                     tenantModal.show();
                 });
+        });
+    });
+
+    const checkoutButtons = document.querySelectorAll('.checkout-button');
+    checkoutButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const tenantId = this.getAttribute('data-id');
+            const confirmCheckoutBtn = document.getElementById('confirmCheckoutBtn');
+            confirmCheckoutBtn.addEventListener('click', function() {
+                window.location.href = `check-out-tenant.php?tenant_id=${tenantId}`;
+            });
         });
     });
 });

@@ -21,6 +21,9 @@ if (!$conn) {
     die("Database connection failed. Please try again later.");
 }
 
+// Turn on error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 // Set character set to UTF-8
 mysqli_set_charset($conn, 'utf8');
 
@@ -31,7 +34,7 @@ $landlord_id = $_SESSION['landlord_id'];
 $tenants = [];
 $query = "
     SELECT 
-        t.TenantID, t.FirstName, t.LastName, tp.payment_date, tp.amount
+        t.TenantID, t.FirstName, t.LastName, t.checked_out, tp.payment_date, tp.amount
     FROM 
         rented_rooms rr
     INNER JOIN 
@@ -43,12 +46,15 @@ $query = "
     ORDER BY 
         t.TenantID, tp.payment_date
 ";
+
+
 $result = mysqli_query($conn, $query);
 
 if ($result && mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         $tenantID = $row['TenantID'];
         $tenants[$tenantID]['name'] = $row['FirstName'] . ' ' . $row['LastName'];
+        $tenants[$tenantID]['checked_out'] = $row['checked_out']; // Add checked_out value for debugging
         if ($row['payment_date']) {
             $tenants[$tenantID]['payments'][] = [
                 'payment_date' => $row['payment_date'],
@@ -59,6 +65,7 @@ if ($result && mysqli_num_rows($result) > 0) {
         }
     }
 }
+
 
 // Close the result set and database connection
 mysqli_free_result($result);
@@ -132,5 +139,6 @@ mysqli_close($conn);
             <?php endif; ?>
         </div>
     </div>
-</main><!-- End #main -->
 
+
+</main><!-- End #main -->
