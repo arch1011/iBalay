@@ -9,7 +9,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>PAY</title>
+  <title>Profile</title>
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -25,18 +25,45 @@
 
   <link href="../../assets/css/style.css" rel="stylesheet">
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+  <style>
+  .carousel-item img {
+    object-fit: cover; /* Ensure the image covers the entire container */
+    width: 100%; /* Ensure the image fills the entire container horizontally */
+    height: 250px; /* Adjust the height as needed */
+  }
+</style>
+
+
 </head>
 
 <body> 
 
-  <?php
+
+<?php
     require('../layouts/sidebar.php');
   ?>
 
-  <?php
-    include('config/payment-form.php');
-  ?>
+<main id="main" class="main">
 
+      <div class="pagetitle">
+        <h1>Your Profile</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Update</a></li>
+            <li class="breadcrumb-item">Form</li>
+          </ol>
+        </nav>
+      </div><!-- End Page Title -->
+
+        <?php
+         include('config/profile-update.php');
+        ?>
+
+
+</main><!-- End #main -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -50,6 +77,8 @@
   <script src="../../assets/vendor/php-email-form/validate.js"></script>
 
   <script src="../../assets/js/main.js"></script>
+
+
 </body>
 
 </html>

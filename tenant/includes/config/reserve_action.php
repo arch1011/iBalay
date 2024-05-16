@@ -39,7 +39,7 @@ try {
             error_log("TenantID: " . $tenant_id);
 
             // Check if the tenant already has a rented room
-            $check_rented_query = "SELECT * FROM rented_rooms WHERE TenantID = ?";
+            $check_rented_query = "SELECT * FROM rented_rooms WHERE TenantID = ? AND room_id != NULL";
             $check_rented_stmt = mysqli_prepare($conn, $check_rented_query);
             mysqli_stmt_bind_param($check_rented_stmt, 'i', $tenant_id);
             mysqli_stmt_execute($check_rented_stmt);

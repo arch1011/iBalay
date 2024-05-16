@@ -64,7 +64,7 @@
       <li class="nav-heading">Other Pages</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
+        <a class="nav-link collapsed" href="/iBalay/landlord/pages/profile.php">
           <i class="bi bi-person"></i>
           <span>Profile</span>
         </a>

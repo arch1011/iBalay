@@ -114,7 +114,7 @@ mysqli_close($conn);
         <p>Last Payment Amount: <?= htmlspecialchars($tenants[$_GET['tenant_id']]['last_payment_amount']) ?></p>
         <p>Boarder Name: <?= htmlspecialchars($tenants[$_GET['tenant_id']]['name']) ?></p>
 
-        <form action="payment-process.php" method="POST">
+        <form action="config/payment-process.php" method="POST">
             <div class="mb-3">
                 <label for="newDueDate" class="form-label">New Due Date</label>
                 <input type="date" class="form-control" id="newDueDate" name="new_due_date" required>
