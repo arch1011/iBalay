@@ -13,6 +13,7 @@
                 <li style="border-top: 1px solid #ccc; padding-top: 10px; margin-top: 10px;"></li>
                 <li><a href="/iBalay/tenant/public/bookmark.php" style="font-size:20px;">My Favorites</a></li>
                 <li><a href="/iBalay/tenant/public/reserved.php" style="font-size:20px;">My Reservation</a></li>
+                <li><a href="/iBalay/tenant/public/inquiry.php" style="font-size:20px;">Room Inquires</a></li>
                 <li><a href="/iBalay/tenant/public/rented.php" style="font-size:20px;">My Room</a></li>
                 <li><a href="/iBalay/tenant/public/#" style="font-size:20px;">My Profile</a></li>
                 <li><a href="about.html" style="font-size:20px;">About</a></li>

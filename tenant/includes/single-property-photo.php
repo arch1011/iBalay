@@ -81,6 +81,9 @@
     </button>
 </form>
 
+<button type="button" class="btn btn-secondary btn-sm py-1 px-2" id="inquireButton" style="margin-top: 10px;">Inquire</button>
+                       
+
 <!-- Success bookmarked Modal -->
 <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -136,6 +139,67 @@
         </div>
     </div>
 </div>
+
+<!-- Inquiry Modal -->
+<div class="modal fade" id="inquiryModal" tabindex="-1" role="dialog" aria-labelledby="inquiryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inquiryModalLabel">Send Inquiry</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Inquiry Form Goes Here -->
+                <form id="inquiryForm" method="post">
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+                    </div>
+                    <input type="hidden" id="room_id" name="room_id" value="<?= htmlspecialchars($room['room_id']) ?>" />
+                    <button type="submit" class="btn btn-primary" style="margin-top:5px;">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add an event listener to the inquire button
+    document.getElementById('inquireButton').addEventListener('click', function() {
+        // Show the inquiry modal when the button is clicked
+        $('#inquiryModal').modal('show');
+    });
+
+    // Add an event listener to the inquiry form submission
+    document.getElementById('inquiryForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+        var formData = new FormData(this);
+        fetch('../includes/submit_inquiry.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // If inquiry was successfully submitted, display success message
+                alert('Inquiry sent successfully!');
+                $('#inquiryModal').modal('hide'); // Hide the inquiry modal using jQuery
+            } else {
+                // If inquiry submission failed, display error message
+                alert('Failed to send inquiry: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // If there was an error, display error message
+            alert('An error occurred while processing your request. Please try again.');
+        });
+    });
+});
+</script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
