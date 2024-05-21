@@ -88,7 +88,7 @@
     $landlord_id = $_SESSION['landlord_id'];
 
     // Query to fetch inquiries along with related information
-    $query = "SELECT i.inquiry_id, i.message, CONCAT(t.FirstName, ' ', t.LastName) AS TenantName, CONCAT(la.first_name, ' ', la.last_name) AS LandlordName, r.room_number, i.timestamp, i.tenant_id
+    $query = "SELECT i.inquiry_id, i.message, i.sent_by,  CONCAT(t.FirstName, ' ', t.LastName) AS TenantName, CONCAT(la.first_name, ' ', la.last_name) AS LandlordName, r.room_number, i.timestamp, i.tenant_id
               FROM inquiry AS i
               INNER JOIN tenant AS t ON i.tenant_id = t.TenantID
               INNER JOIN room AS r ON i.room_id = r.room_id
@@ -170,7 +170,7 @@
                     <hr>
                     <?php foreach ($roomData['inquiries'] as $inquiry): ?>
                         <div class="message-box">
-                            <p><?= htmlspecialchars($inquiry['message']) ?></p>
+                            <p><strong><?= ($inquiry['sent_by'] === 'landlord') ? 'Landlord' : 'Tenant' ?>:</strong> <?= htmlspecialchars($inquiry['message']) ?></p>
                         </div>
 
                         <?php if (!empty($inquiry['reply'])): ?>
@@ -195,6 +195,7 @@
     </div>
     <!-- End Modal -->
 <?php endforeach; ?>
+
 
 </div>
 
