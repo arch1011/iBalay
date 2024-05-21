@@ -89,7 +89,7 @@ include('../../tenant/session.php');
     <hr>
 
     <?php
-     include('../includes/bookmarked-rooms.php');
+     include('../includes/inquiry-rooms.php');
     ?>
 
 

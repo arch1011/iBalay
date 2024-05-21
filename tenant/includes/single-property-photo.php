@@ -41,8 +41,15 @@
       </div>
 
       <div class="col-lg-4">
-        <h2 class="heading text-primary">Price: ₱ <?= htmlspecialchars($room['room_price']) ?></h2>
-        <p class="meta">Location: <?= htmlspecialchars($room['BH_address']) ?></p>
+    <div class="price-inquire d-flex align-items-center">
+        <h2 class="heading text-primary mb-0 mr-3" style="font-size:30px;">Price: ₱ <?= htmlspecialchars($room['room_price']) ?></h2>
+        <button type="button" class="btn btn-secondary btn-sm py-1 px-2" id="inquireButton" title="Inquire">
+        <i class="fas fa-comment"></i>
+    </button>
+    </div>
+    <p class="meta mt-2">Location: <?= htmlspecialchars($room['BH_address']) ?></p>
+
+    <hr>
 
         <!-- Room description -->
         <p class="text-black-50"><?= htmlspecialchars($room['room_description']) ?></p>
@@ -81,8 +88,7 @@
     </button>
 </form>
 
-<button type="button" class="btn btn-secondary btn-sm py-1 px-2" id="inquireButton" style="margin-top: 10px;">Inquire</button>
-                       
+
 
 <!-- Success bookmarked Modal -->
 <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
@@ -146,9 +152,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="inquiryModalLabel">Send Inquiry</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 <!-- Inquiry Form Goes Here -->

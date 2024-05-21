@@ -59,10 +59,10 @@ mysqli_close($conn); // Close connection
 ?>
 
 <!-- Title for the map section -->
-<h2 class="text-center mb-4">BH MAP</h2>
+<h2 class="text-center mb-4">BOARDINGHOUSE MAP</h2>
 
 <!-- Display the map -->
-<div id="map" style="height: 400px; width: 100%;"></div>
+<div id="map" style="height: 200px; width: 100%;"></div>
 
 <script>
 // Initialize the map with the fetched coordinates

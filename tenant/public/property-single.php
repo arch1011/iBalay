@@ -23,6 +23,9 @@ include('../../tenant/session.php');
     <link rel="stylesheet" href=".././../Resources/fonts/icomoon/style.css" />
     <link rel="stylesheet" href="../../Resources/fonts/flaticon/font/flaticon.css" />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
     <link rel="stylesheet" href="../../Resources/css/tiny-slider.css" />
     <link rel="stylesheet" href="../../Resources/css/aos.css" />
     <link rel="stylesheet" href="../../Resources/css/style.css" />
@@ -30,7 +33,19 @@ include('../../tenant/session.php');
         <!-- CSS to set consistent image size -->
         <link rel="stylesheet" href="../includes/css/room-review.css" />
 
+
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <style>
+        .price-inquire {
+            display: flex;
+            align-items: center;
+        }
+        .price-inquire .heading {
+            margin-right: 35px; /* Adjust the space as needed */
+            margin-left: 0;
+        }
+        </style>
 
     <title>
       Room
