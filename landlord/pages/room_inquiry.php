@@ -29,10 +29,22 @@
 
   <style>
   .carousel-item img {
-    object-fit: cover; /* Ensure the image covers the entire container */
-    width: 100%; /* Ensure the image fills the entire container horizontally */
-    height: 250px; /* Adjust the height as needed */
+    object-fit: cover; 
+    width: 100%; 
+    height: 250px; 
   }
+    .btn-icon i {
+        font-size: 0.8em; /* Adjust the size as needed */
+    }
+    .btn-icon {
+        display: inline-block; /* Ensure buttons are inline */
+        margin-right: 5px; /* Add some space between buttons */
+    }
+    .carousel-item img {
+        object-fit: cover; /* Ensure the image covers the entire container */
+        width: 100%; /* Ensure the image fills the entire container horizontally */
+        height: 250px; /* Adjust the height as needed */
+    }
   </style>
 
 </head>
@@ -126,7 +138,7 @@
         <table class="table datatable">
             <thead>
                 <tr>
-                    <th>Tenant Name</th>
+                    <th>Name</th>
                     <th>Room Details</th>
                     <th>Action</th>
                 </tr>
@@ -138,11 +150,20 @@
                         <td><?= htmlspecialchars($roomData['TenantName']) ?></td>
                         <td><?= htmlspecialchars($roomData['room_number']) ?></td>
                         <td>
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#inquiryModal<?= htmlspecialchars($roomKey) ?>" aria-label="View Inquiry">
-    <i class="bi bi-eye"></i>
-</button>
-                        </td>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-icon" data-bs-toggle="modal" data-bs-target="#inquiryModal<?= htmlspecialchars($roomKey) ?>" aria-label="View Inquiry">
+        <i class="bi bi-eye"></i>
+    </button>
+    <form method="post" action="delete_inquiry.php" style="display:inline;">
+        <input type="hidden" name="tenant_id" value="<?= htmlspecialchars($firstInquiry['tenant_id']) ?>">
+        <input type="hidden" name="room_number" value="<?= htmlspecialchars($roomData['room_number']) ?>">
+        <button type="submit" class="btn btn-danger btn-icon" aria-label="Delete Inquiry">
+            <i class="bi bi-trash"></i>
+        </button>
+    </form>
+</td>
+
+
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -210,5 +231,21 @@
 <script src="../../assets/vendor/tinymce/tinymce.min.js"></script>
 <script src="../../assets/vendor/php-email-form/validate.js"></script>
 <script src="../../assets/js/main.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Initialize DataTable with buttons
+        var table = $('#roomTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'pdf', 'excel', 'copy', 'print'
+            ]
+        });
+
+        // Move the buttons to the desired position (right end of the header)
+        table.buttons().container().appendTo($('#roomTable_wrapper .dataTables_filter'));
+    });
+</script>
+
 </body>
 </html>

@@ -1,7 +1,6 @@
 <?php
-// Include the database connection file
-include 'connect_db/connection.php';
-
+                    include '../database/config.php';
+                    
 // Check if the report ID is received via POST
 if(isset($_POST['report_id'])) {
     // Sanitize the input to prevent SQL injection

@@ -88,6 +88,11 @@ include('../../tenant/session.php');
 
 
 
+    <script>
+    function openReportModal() {
+        $('#addReportModal').modal('show');
+    }
+</script>
 
 
   </body>

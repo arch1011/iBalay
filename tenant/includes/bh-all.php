@@ -75,22 +75,23 @@ mysqli_close($conn); // Close the connection
 <!-- HTML and Pagination Controls -->
 <div class="section section-properties">
     <div class="container">
-        <div class="row">
-            <?php foreach ($boarding_houses as $bh): ?>
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                    <div class="property-item mb-30">
-                        <div class="property-content">
-                            <div>
-                                <span class="d-block mb-2 text-black-50" style=" font-size: 20px">BH Name:<?= $bh['BH_name'] ?></span>
-                                <span class="d-block mb-2 text-black-50" style=" font-size: 15px">BH Address:<?= $bh['BH_address'] ?></span>
-                                <a href="../public/bh-rooms.php?bh_id=<?= $bh['bh_id'] ?>" class="btn btn-primary py-2 px-3">See rooms</a>
-                            </div>
-                            <hr>
-                        </div>
+    <div class="row">
+    <?php foreach ($boarding_houses as $bh): ?>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 mb-4">
+            <div class="property-item mb-30">
+                <div class="property-content">
+                    <div>
+                        <span class="d-block mb-2 text-black-50" style="font-size: 20px">BH Name: <?= htmlspecialchars($bh['BH_name']) ?></span>
+                        <span class="d-block mb-2 text-black-50" style="font-size: 15px">BH Address: <?= htmlspecialchars($bh['BH_address']) ?></span>
+                        <a href="../public/bh-rooms.php?bh_id=<?= htmlspecialchars($bh['bh_id']) ?>" class="btn btn-primary py-2 px-3">See rooms</a>
                     </div>
+                    <hr>
                 </div>
-            <?php endforeach; ?>
+            </div>
         </div>
+    <?php endforeach; ?>
+</div>
+        
 
         <!-- Pagination Controls -->
         <div class="row align-items-center py-5">

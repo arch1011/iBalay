@@ -27,9 +27,7 @@ include('../../tenant/session.php');
     <link rel="stylesheet" href="../../Resources/css/aos.css" />
     <link rel="stylesheet" href="../../Resources/css/style.css" />
 
-    <!-- CSS to set consistent image size -->
-    <link rel="stylesheet" href="../includes/css/property-list.css" />
-    
+
    <title>
       Property All
     </title>

@@ -44,11 +44,11 @@ include('../../tenant/session.php');
         <div class="container">
             <div class="row justify-content-center align-items-center">
                 <div class="col-lg-9 text-center mt-5">
-                    <h1 class="heading" data-aos="fade-up">Inquired Properties</h1>
+                    <h1 class="heading" data-aos="fade-up">Reported Issues</h1>
                     <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="200">
                         <ol class="breadcrumb text-center justify-content-center">
                             <li class="breadcrumb-item"><a href="/iBalay/tenant/public/home.php">Home</a></li>
-                            <li class="breadcrumb-item active text-white-50" aria-current="page">Inquiries</li>
+                            <li class="breadcrumb-item active text-white-50" aria-current="page">Reports</li>
                         </ol>
                     </nav>
                 </div>
@@ -59,8 +59,6 @@ include('../../tenant/session.php');
     <hr>
 
     <?php
-
-
     // Check if TenantID is set in the session
     if (!isset($_SESSION['TenantID'])) {
         // Redirect or handle the case where TenantID is not set
@@ -91,25 +89,18 @@ include('../../tenant/session.php');
     // Get the tenant ID from the session
     $tenant_id = $_SESSION['TenantID'];
 
-    // Query to fetch inquiries for the logged-in tenant
-    $query = "SELECT i.inquiry_id, i.room_id, r.room_number, i.message, i.sent_by, i.timestamp
-              FROM inquiry AS i
-              INNER JOIN room AS r ON i.room_id = r.room_id
-              WHERE i.tenant_id = $tenant_id";
+    // Query to fetch reports for the logged-in tenant
+    $query = "SELECT r.ReportID, r.room_id, rm.room_number, r.ReportDate, r.ReportText, r.Acknowledge, r.Notified
+              FROM report AS r
+              INNER JOIN room AS rm ON r.room_id = rm.room_id
+              WHERE r.TenantID = $tenant_id";
 
     $result = mysqli_query($conn, $query);
 
-    $inquiries = [];
+    $reports = [];
     if ($result && mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-            $roomKey = $row['room_id'];
-            if (!isset($inquiries[$roomKey])) {
-                $inquiries[$roomKey] = [
-                    'room_number' => $row['room_number'],
-                    'messages' => [],
-                ];
-            }
-            $inquiries[$roomKey]['messages'][] = $row;
+            $reports[] = $row;
         }
     }
 
@@ -121,7 +112,7 @@ include('../../tenant/session.php');
     ?>
 
     <div class="container mt-5">
-        <h3>Inquiries</h3>
+        <h3>Reports</h3>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -130,12 +121,12 @@ include('../../tenant/session.php');
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($inquiries as $roomKey => $roomData): ?>
+                <?php foreach ($reports as $report): ?>
                     <tr>
-                        <td><?= htmlspecialchars($roomData['room_number']) ?></td>
+                        <td><?= htmlspecialchars($report['room_number']) ?></td>
                         <td>
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#inquiryModal<?= htmlspecialchars($roomKey) ?>">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reportModal<?= htmlspecialchars($report['ReportID']) ?>">
                                 <i class="fas fa-envelope"></i>
                             </button>
                         </td>
@@ -145,38 +136,28 @@ include('../../tenant/session.php');
         </table>
     </div>
 
-    <?php foreach ($inquiries as $roomKey => $roomData): ?>
+    <?php foreach ($reports as $report): ?>
         <!-- Modal -->
-        <div class="modal fade" id="inquiryModal<?= htmlspecialchars($roomKey) ?>" tabindex="-1" aria-labelledby="inquiryModalLabel<?= htmlspecialchars($roomKey) ?>" aria-hidden="true">
+        <div class="modal fade" id="reportModal<?= htmlspecialchars($report['ReportID']) ?>" tabindex="-1" aria-labelledby="reportModalLabel<?= htmlspecialchars($report['ReportID']) ?>" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="inquiryModalLabel<?= htmlspecialchars($roomKey) ?>">Inquiry Details</h5>
+                        <h5 class="modal-title" id="reportModalLabel<?= htmlspecialchars($report['ReportID']) ?>">Report Details</h5>
                     </div>
                     <div class="modal-body" style="max-height: calc(100vh - 200px); overflow-y: auto;">
                         <div class="row">
                             <div class="col-md-6">
-                                <p><strong>Room Number:</strong> <?= htmlspecialchars($roomData['room_number']) ?></p>
+                                <p><strong>Room Number:</strong> <?= htmlspecialchars($report['room_number']) ?></p>
+                                <p><strong>Report Date:</strong> <?= htmlspecialchars($report['ReportDate']) ?></p>
                             </div>
                         </div>
                         <hr>
-                        <?php foreach ($roomData['messages'] as $message): ?>
-                            <div class="message-box">
-                                <p><strong><?= htmlspecialchars(ucfirst($message['sent_by'])) ?>:</strong> <?= htmlspecialchars($message['message']) ?></p>
-                                <small class="text-muted"><?= htmlspecialchars($message['timestamp']) ?></small>
-                            </div>
-                            <hr>
-                        <?php endforeach; ?>
+                        <div class="message-box">
+                            <p><strong>Report Text:</strong> <?= htmlspecialchars($report['ReportText']) ?></p>
+                            <small class="text-muted">Acknowledged: <?= htmlspecialchars($report['Acknowledge']) ? 'Yes' : 'No' ?></small><br>
+                        </div>
+                        <hr>
 
-                        <!-- Reply form -->
-                        <form method="post" action="tenant_reply.php">
-                            <div class="mb-3">
-                                <label for="replyMessage" class="form-label">Reply</label>
-                                <textarea class="form-control" id="replyMessage" name="message" rows="3" required></textarea>
-                            </div>
-                            <input type="hidden" name="room_id" value="<?= htmlspecialchars($roomKey) ?>">
-                            <button type="submit" class="btn btn-primary">Send Reply</button>
-                        </form>
                     </div>
                 </div>
             </div>

@@ -102,12 +102,10 @@ mysqli_free_result($result);
                     <!-- Add buttons for sending report and adding review -->
                     <div class="buttons">
                         <!-- Send Report Button -->
-                        <form id="reportForm" action="../includes/config/report-action.php" method="post" style="display: inline-block;">
-                            <input type="hidden" name="room_id" value="<?= $room['room_id'] ?>" />
-                            <button id="reportButton" type="submit" class="btn btn-outline-danger" title="Send report">
-                                <i class="fa fa-flag"></i> Send Report
-                            </button>
-                        </form>
+                        <button id="reportButton" type="button" class="btn btn-outline-danger" title="Send report" onclick="openReportModal()">
+    <i class="fa fa-flag"></i> Send Report
+</button>
+
                         <!-- Add Review Button -->
                         <button id="reviewButton" type="button" class="btn btn-primary" onclick="$('#addReviewModal').modal('show');" title="Add review">
                             <i class="fa fa-calendar"></i> Add Review
@@ -124,6 +122,38 @@ mysqli_free_result($result);
         <?php endif; ?>
     </div>
 </div>
+
+<!-- Add Report Modal -->
+<div class="modal fade" id="addReportModal" tabindex="-1" role="dialog" aria-labelledby="addReportModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addReportModalLabel">Send Report</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="addReportForm" action="../includes/config/send-report-action.php" method="post">
+                <div class="modal-body">
+                    <!-- Room ID -->
+                    <input type="hidden" name="room_id" value="<?= $room['room_id'] ?>" />
+                    
+                    <!-- Report Text -->
+                    <div class="form-group">
+                        <label for="reportText">Report Text</label>
+                        <textarea class="form-control" id="reportText" name="report_text" rows="5" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Send Report</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 
 <!-- Add Review Modal -->
 <?php if ($room): ?>
@@ -182,3 +212,6 @@ mysqli_free_result($result);
         </div>
     </div>
 <?php endif; ?>
+
+
+ 

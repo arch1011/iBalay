@@ -2,10 +2,23 @@
 // Start a session to manage user login state
 session_start();
 
+// Helper function to send JSON response
+function send_json_response($success, $message = '', $redirectURL = '') {
+    header('Content-Type: application/json');
+    $response = ['success' => $success];
+    if ($message) {
+        $response['message'] = $message;
+    }
+    if ($redirectURL) {
+        $response['redirectURL'] = $redirectURL;
+    }
+    echo json_encode($response);
+    exit();
+}
+
 // Check if the user is already logged in; if so, redirect to the dashboard
 if (isset($_SESSION['TenantID'])) {
-    header("Location: /iBalay/tenant/public/home.php"); // Replace with your actual dashboard page URL
-    exit();
+    send_json_response(true, '', '/iBalay/tenant/public/home.php');
 }
 
 // Check if the form was submitted
@@ -32,32 +45,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($password, $stored_password)) {
             // Password is hashed and correct, set session variables
             $_SESSION['TenantID'] = $TenantID;
-            header("Location: /iBalay/tenant/index.php"); // Replace with your actual dashboard page URL
-            exit();
+            send_json_response(true, '', '/iBalay/tenant/index.php');
         } elseif ($password === $stored_password) {
             // Password is in plaintext and correct, set session variables
             $_SESSION['TenantID'] = $TenantID;
-            header("Location: /iBalay/tenant/index.php"); // Replace with your actual dashboard page URL
-            exit();
+            send_json_response(true, '', '/iBalay/tenant/index.php');
         } else {
             // Password is incorrect, display an error message
-            $login_error = "Invalid email or password.";
+            send_json_response(false, 'Invalid email or password.');
         }
     } else {
         // If login fails, you can display an error message here.
-        $login_error = "Invalid email or password.";
+        send_json_response(false, 'Invalid email or password.');
     }
 }
-
-// If the script reaches here, it means either it's a GET request or the login failed.
-// You can render the login form and display any error message.
-
 
 // Turn on error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Redirect to error page if the dashboard URL is not found
-
-exit();
+send_json_response(false, 'An error occurred.');
 ?>
